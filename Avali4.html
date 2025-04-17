@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avaliação de Atendimento - CSD</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      color: #1f2d3d;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    .logo {
+      max-width: 1050px;
+      margin: 40px auto 1px;
+      display: block;
+      line-height: 0;
+      vertical-align: bottom;
+      padding: 0;
+    }
+    h1 {
+      color: #1f2d3d;
+    }
+    .rating {
+      font-size: 4rem;
+      margin: 20px 0;
+    }
+    .rating span {
+      cursor: pointer;
+      padding: 10px;
+      transition: transform 0.2s;
+    }
+    .rating span:hover {
+      transform: scale(1.2);
+    }
+    textarea {
+      width: 90%;
+      height: 100px;
+      margin-top: 20px;
+      font-size: 1.7rem;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 15px 30px;
+      background-color: #1f2d3d;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+    .thank-you {
+      display: none;
+      font-size: 3rem;
+      color: green;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <img src="CSD_logo_CMYK_color-horiz.png" alt="Logotipo Cartório CSD" class="logo" />
+  <h1>Como foi seu atendimento hoje?</h1>
+  <div class="rating" id="rating">
+    <span data-score="0">😡</span>
+    <span data-score="1">😟</span>
+    <span data-score="2">😐</span>
+    <span data-score="3">🙂</span>
+    <span data-score="4">😀</span>
+    <span data-score="5">🤩</span>
+  </div>
+  <textarea id="comment" placeholder="Deseja deixar um comentário?"></textarea><br>
+  <button onclick="submitFeedback()">Enviar Avaliação</button>
+  <div class="thank-you" id="thankYou">Obrigado pela sua opinião!</div>
+
+  <script>
+    let selectedScore = null;
+    document.querySelectorAll('.rating span').forEach(span => {
+      span.addEventListener('click', () => {
+        selectedScore = span.dataset.score;
+        document.querySelectorAll('.rating span').forEach(s => s.style.background = '');
+        span.style.background = '#d0eaff';
+      });
+    });
+
+    function submitFeedback() {
+      if (selectedScore === null) {
+        alert('Por favor, selecione uma nota.');
+        return;
+      }
+      const comment = document.getElementById('comment').value;
+      console.log('Nota:', selectedScore);
+      console.log('Comentário:', comment);
+
+      document.getElementById('thankYou').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('thankYou').style.display = 'none';
+        window.location.reload();
+      }, 5000);
+    }
+  </script>
+</body>
+</html>
